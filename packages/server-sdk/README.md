@@ -1,2 +1,2 @@
-# Knox Networks Server SDK - Digital Identity and Verifiable Credentials
-For setup intstructinos & documentation, please go to the [README](../../README.md)
+# Knox Networks Identity Bridge Server SDK - Bridge to W3C Decentralized Identifier (DID) and Verifiable Credentials (VC)
+For setup instructions & documentation, please go to the [README](../../README.md)
