@@ -22,6 +22,7 @@ In your package.json you need to have added `type`: `module` as one of key-value
 ### GitHub Access
 In order to download a package published to GitHub packages, you will need a Personal GitHub Access Token in your .npmrc, alongside the configuration for the Knox Networks GitHub Registry. So your `.npmrc` should look something like:
 ```
+@buf:registry https://buf.build/gen/npm/v1
 @knox-networks:registry=https://npm.pkg.github.com
 
 //npm.pkg.github.com/:_authToken=<auth_token_here>
