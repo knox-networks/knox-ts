@@ -22,10 +22,11 @@ const getCredential = async () => {
         signer: kps,
     });
 
-    await client.identity.associate({
-        token: token.token,
-        signer: kps,
-    });
+// Commenting out until following issue is resolved https://github.com/paulmillr/ed25519-keygen/issues/5
+//     await client.identity.associate({
+//         token: token.token,
+//         signer: kps,
+//     });
 
     const vc = await client.credential.request({
         signer: kps,
