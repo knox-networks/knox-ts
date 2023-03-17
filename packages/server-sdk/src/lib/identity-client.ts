@@ -8,7 +8,7 @@ import { createMnemonic, KeyPairs } from './internal/key-pairs'
 import {
     DidDocument,
     RecoverIdentityParams,
-    RegisterIdentityParams,
+    AssociateIdentityParams,
     VerificationRelation,
 } from './public.types'
 
@@ -59,7 +59,7 @@ export class IdentityClient {
         return [did_doc, kps]
     }
 
-    public async register(params: RegisterIdentityParams) {
+    public async associate(params: AssociateIdentityParams) {
         const did = params.signer.getDid()
         if (params.challenge) {
             const nonce = params.challenge.nonce

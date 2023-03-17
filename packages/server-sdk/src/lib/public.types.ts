@@ -100,7 +100,7 @@ export interface KnoxConfig {
     network: NetworkConfig
 }
 
-export interface RegisterIdentityParams {
+export interface AssociateIdentityParams {
     challenge?: {
         nonce: string
     }

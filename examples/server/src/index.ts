@@ -22,7 +22,7 @@ const getCredential = async () => {
         signer: kps,
     });
 
-    await client.identity.register({
+    await client.identity.associate({
         token: token.token,
         signer: kps,
     });
