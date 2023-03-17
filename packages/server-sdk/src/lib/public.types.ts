@@ -55,7 +55,7 @@ export interface RequestCredentialParams {
 
     signer: DynamicSigner
 
-    credentialType: string
+    credentialType: CredentialType
 }
 
 export interface RecoverIdentityParams {
@@ -113,5 +113,11 @@ export interface RegisterIdentityParams {
 export interface VerifiableCredential {
     credential: string
 
-    credentialType: string
+    credentialType: CredentialType
+}
+
+export enum CredentialType {
+    BankAccount = 'BankAccount',
+    BankCard = 'BankCard',
+    PermanentResidentCard = 'PermanentResidentCard',
 }

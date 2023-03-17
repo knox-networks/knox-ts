@@ -1,4 +1,4 @@
-import { KnoxClient } from "@knox-networks/server-sdk";
+import { KnoxClient, CredentialType } from "@knox-networks/server-sdk";
 import * as dotenv from "dotenv";
 
 dotenv.config();
@@ -25,7 +25,7 @@ const getCredential = async () => {
     const vc = await client.credential.request({
         signer: kps,
         accessToken: token.token,
-        credentialType: "BankAccount",
+        credentialType: CredentialType.BankAccount,
     });
 
     console.log(did_doc, kps);
