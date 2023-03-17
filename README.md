@@ -32,5 +32,5 @@ You can follow the [offical GitHub Packages guide](https://docs.github.com/en/pa
 ## Installation
 You can run the following command to install the `@knox-networks/server-sdk` package:
 ```sh
-npm install @knox-networks/server-sdk@1.0.0
+npm install @knox-networks/server-sdk
 ```
