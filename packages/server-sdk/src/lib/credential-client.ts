@@ -1,9 +1,10 @@
 import { CredentialAdapterService } from '@buf/knox-networks_credential-adapter.bufbuild_connect-es/vc_api/v1/vc_connect.js'
-import { CredentialType } from '@buf/knox-networks_credential-adapter.bufbuild_es/vc_api/v1/vc_pb.js'
+import { CredentialType as ProtoCredentialType } from '@buf/knox-networks_credential-adapter.bufbuild_es/vc_api/v1/vc_pb.js'
 import { createPromiseClient, PromiseClient } from '@bufbuild/connect'
 import { createGrpcTransport } from '@bufbuild/connect-node'
 import { bytes } from 'multiformats'
 import {
+    CredentialType,
     RequestCredentialParams,
     VerifiableCredential,
     VerificationRelation,
@@ -25,7 +26,7 @@ export class CredentialClient {
         params: RequestCredentialParams
     ): Promise<VerifiableCredential> {
         const did = params.signer.getDid()
-        const credentialType = params.credentialType
+        const credentialType = getCredentialEnumFromName(params.credentialType)
         const challenge = await this.parseChallenge(
             did,
             params.accessToken,
@@ -61,7 +62,7 @@ export class CredentialClient {
     private async parseChallenge(
         did: string,
         accessToken: string,
-        credentialType: CredentialType,
+        credentialType: ProtoCredentialType,
         challenge?: { nonce: string }
     ): Promise<{ nonce: string }> {
         if (challenge) {
@@ -79,6 +80,22 @@ export class CredentialClient {
                 }
             )
             return challenge
+        }
+    }
+}
+
+function getCredentialEnumFromName(
+    credType: CredentialType
+): ProtoCredentialType {
+    switch (credType) {
+        case 'PermanentResidentCard': {
+            return ProtoCredentialType.PERMANENT_RESIDENT_CARD
+        }
+        case 'BankAccount': {
+            return ProtoCredentialType.BANK_ACCOUNT
+        }
+        default: {
+            throw new Error('requested a unsupported credType')
         }
     }
 }

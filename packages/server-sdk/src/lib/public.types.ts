@@ -1,5 +1,3 @@
-import { CredentialType } from '@buf/knox-networks_credential-adapter.bufbuild_es/vc_api/v1/vc_pb.js'
-
 export interface KeyMaterial {
     controller: string
 
@@ -118,17 +116,8 @@ export interface VerifiableCredential {
     credentialType: CredentialType
 }
 
-export { CredentialType }
-
-export const getCredentialTypeName = (type: CredentialType): string => {
-    switch (type) {
-        case CredentialType.BANK_ACCOUNT:
-            return 'BankAccount'
-        case CredentialType.BANK_CARD:
-            return 'BankCard'
-        case CredentialType.PERMANENT_RESIDENT_CARD:
-            return 'PermanentResidentCard'
-        default:
-            throw new Error('No credential type matched')
-    }
+export enum CredentialType {
+    BankAccount = 'BankAccount',
+    BankCard = 'BankCard',
+    PermanentResidentCard = 'PermanentResidentCard',
 }

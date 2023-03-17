@@ -25,7 +25,7 @@ const getCredential = async () => {
     const vc = await client.credential.request({
         signer: kps,
         accessToken: token.token,
-        credentialType: CredentialType.BANK_ACCOUNT,
+        credentialType: CredentialType.BankAccount,
     });
 
     console.log(did_doc, kps);
