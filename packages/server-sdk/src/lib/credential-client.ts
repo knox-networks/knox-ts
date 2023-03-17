@@ -25,7 +25,7 @@ export class CredentialClient {
         params: RequestCredentialParams
     ): Promise<VerifiableCredential> {
         const did = params.signer.getDid()
-        const credentialType = getCredentialEnumFromName(params.credentialType)
+        const credentialType = params.credentialType
         const challenge = await this.parseChallenge(
             did,
             params.accessToken,
@@ -79,20 +79,6 @@ export class CredentialClient {
                 }
             )
             return challenge
-        }
-    }
-}
-
-function getCredentialEnumFromName(credType: string): CredentialType {
-    switch (credType) {
-        case 'PermanentResidentCard': {
-            return CredentialType.PERMANENT_RESIDENT_CARD
-        }
-        case 'BankAccount': {
-            return CredentialType.BANK_ACCOUNT
-        }
-        default: {
-            throw new Error('requested a unsupported credType')
         }
     }
 }
