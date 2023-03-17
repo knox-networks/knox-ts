@@ -22,6 +22,11 @@ const getCredential = async () => {
         signer: kps,
     });
 
+    await client.identity.register({
+        token: token.token,
+        signer: kps,
+    });
+
     const vc = await client.credential.request({
         signer: kps,
         accessToken: token.token,
