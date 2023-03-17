@@ -88,11 +88,14 @@ function getCredentialEnumFromName(
     credType: CredentialType
 ): ProtoCredentialType {
     switch (credType) {
-        case 'PermanentResidentCard': {
+        case CredentialType.PermanentResidentCard: {
             return ProtoCredentialType.PERMANENT_RESIDENT_CARD
         }
-        case 'BankAccount': {
+        case CredentialType.BankAccount: {
             return ProtoCredentialType.BANK_ACCOUNT
+        }
+        case CredentialType.BankCard: {
+            return ProtoCredentialType.BANK_CARD
         }
         default: {
             throw new Error('requested a unsupported credType')
