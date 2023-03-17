@@ -1,0 +1,24 @@
+{
+    "name": "@knox-networks/knox-ts",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "preinstall": "chmod +x scripts/*.sh",
+        "postinstall": "bash scripts/install.sh",
+        "clean": "bash scripts/clean.sh",
+        "sort": "npm run sort:packages && npm run sort:projects",
+        "sort:packages": "bash scripts/run.sh packages sort",
+        "sort:projects": "bash scripts/run.sh examples sort",
+        "lint": "npm run lint:packages && npm run lint:projects",
+        "lint:packages": "bash scripts/run.sh packages lint",
+        "lint:projects": "bash scripts/run.sh examples lint",
+        "build": "npm run build:packages && npm run build:projects",
+        "build:packages": "bash scripts/run.sh packages build",
+        "build:projects": "bash scripts/run.sh examples build",
+        "test": "npm run test:packages && npm run test:projects",
+        "test:packages": "bash scripts/run.sh packages test",
+        "test:projects": "bash scripts/run.sh examples test"
+    },
+    "dependencies": {},
+    "devDependencies": {}
+}
