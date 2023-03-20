@@ -1,10 +1,15 @@
 import { UserApiService } from '@buf/knox-networks_user-mgmt.bufbuild_connect-es/user_api/v1/user_connect.js'
+import { Provider } from '@buf/knox-networks_user-mgmt.bufbuild_es/user_api/v1/user_pb.js'
+
 import { createPromiseClient, PromiseClient } from '@bufbuild/connect'
 import { createGrpcTransport } from '@bufbuild/connect-node'
 import { bytes } from 'multiformats'
 import {
+    AuthProvider,
     AuthToken,
     CreateTokenParams,
+    GetAuthProviderCallbackParams,
+    ProviderCallback,
     VerificationRelation,
 } from './public.types'
 
@@ -69,6 +74,21 @@ export class TokenClient {
         }
     }
 
+    async get_auth_provider_callback(
+        params: GetAuthProviderCallbackParams
+    ): Promise<ProviderCallback> {
+        const { providerUrl } = await this.client.authnWithProvider({
+            requestOrigin: params.requestOrigin,
+            clientState: params.clientState,
+            instanceName: params.instanceName,
+            provider: providerToProtoProvider(params.provider),
+        })
+
+        return {
+            providerUrl,
+        }
+    }
+
     private async parseChallenge(
         did: string,
         challenge?: { nonce: string }
@@ -79,6 +99,30 @@ export class TokenClient {
             return await this.client.createAuthnWalletChallenge({
                 did,
             })
+        }
+    }
+}
+
+const providerToProtoProvider = (p: AuthProvider): Provider => {
+    switch (p) {
+        case AuthProvider.Google: {
+            return Provider.GOOGLE
+        }
+
+        case AuthProvider.Github: {
+            return Provider.GITHUB
+        }
+        case AuthProvider.Facebook: {
+            return Provider.FACEBOOK
+        }
+        case AuthProvider.Cognito: {
+            return Provider.COGNITO
+        }
+        case AuthProvider.Saml: {
+            return Provider.SAML
+        }
+        default: {
+            throw new Error('no associated provider found')
         }
     }
 }
