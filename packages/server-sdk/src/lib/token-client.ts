@@ -9,6 +9,7 @@ import {
     AuthToken,
     CreateTokenParams,
     GetAuthProviderCallbackParams,
+    HandleCallbackParams,
     ProviderCallback,
     VerificationRelation,
 } from './public.types'
@@ -74,7 +75,7 @@ export class TokenClient {
         }
     }
 
-    async get_auth_provider_callback(
+    async createAuthProviderCallback(
         params: GetAuthProviderCallbackParams
     ): Promise<ProviderCallback> {
         const { providerUrl } = await this.client.authnWithProvider({
@@ -86,6 +87,34 @@ export class TokenClient {
 
         return {
             providerUrl,
+        }
+    }
+
+    async handleCallback(params: HandleCallbackParams): Promise<{
+        instanceName: string
+        authToken: AuthToken
+        requestOrigin: string
+        clientState: { [key: string]: unknown }
+    }> {
+        const {
+            authToken,
+            instanceName,
+            requestOrigin,
+            clientState = {},
+        } = await this.client.handleOIDCCallback({
+            code: params.code,
+            state: params.state,
+        })
+
+        if (!authToken) {
+            throw new Error('no access token returned as part of response')
+        }
+
+        return {
+            instanceName,
+            requestOrigin,
+            clientState,
+            authToken,
         }
     }
 

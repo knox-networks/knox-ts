@@ -92,6 +92,11 @@ export interface ProviderCallback {
     providerUrl: string
 }
 
+export interface HandleCallbackParams {
+    code: string
+    state: string
+}
+
 export interface NetworkConfig {
     credentialAdapterURL: string
 
