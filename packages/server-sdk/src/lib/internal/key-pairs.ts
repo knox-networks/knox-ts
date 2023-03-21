@@ -10,6 +10,7 @@ import {
 
 const VERIFICATION_PROOF_TYPE = 'Ed25519VerificationKey2020'
 const SIGNATURE_PROOF_TYPE = 'Ed25519Signature2020'
+const ED25519_MULTICODEC = [0xed, 0x01]
 
 const DID_PREFIX = 'did:knox:'
 
@@ -47,7 +48,15 @@ export class KeyPairs implements DynamicSigner {
     }
 
     public getEncodedPublicKey(rel: VerificationRelation): string {
-        return base58btc.encode(this.getKey(rel).publicKeyRaw)
+        // According to EdDSA v2020, public key must be encoded to multicodec and formatted to multibase
+        // https://www.w3.org/community/reports/credentials/CG-FINAL-di-eddsa-2020-20220724/#ed25519verificationkey2020
+        const publicKey = this.getKey(rel).publicKeyRaw
+        const combined = new Uint8Array(
+            ED25519_MULTICODEC.length + publicKey.length
+        )
+        combined.set(ED25519_MULTICODEC)
+        combined.set(publicKey, ED25519_MULTICODEC.length)
+        return base58btc.encode(combined)
     }
 
     public getKey(rel: VerificationRelation): HDKey {
