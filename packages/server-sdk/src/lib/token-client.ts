@@ -8,9 +8,8 @@ import {
     AuthProvider,
     AuthToken,
     CreateTokenParams,
-    GetAuthProviderCallbackParams,
+    GetAuthProviderURLParams,
     HandleCallbackParams,
-    ProviderCallback,
     VerificationRelation,
 } from './public.types'
 
@@ -76,8 +75,8 @@ export class TokenClient {
     }
 
     async createAuthProviderURL(
-        params: GetAuthProviderCallbackParams
-    ): Promise<ProviderCallback> {
+        params: GetAuthProviderURLParams
+    ): Promise<{ providerUrl: string }> {
         const { providerUrl } = await this.client.authnWithProvider({
             requestOrigin: params.requestOrigin,
             clientState: params.clientState,

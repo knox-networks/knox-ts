@@ -88,10 +88,6 @@ export interface AuthToken {
     tokenType: string
 }
 
-export interface ProviderCallback {
-    providerUrl: string
-}
-
 export interface HandleCallbackParams {
     code: string
     state: string
@@ -119,7 +115,7 @@ export interface AssociateIdentityParams {
     token: string
 }
 
-export interface GetAuthProviderCallbackParams {
+export interface GetAuthProviderURLParams {
     instanceName: string
     requestOrigin: string
     provider: AuthProvider
