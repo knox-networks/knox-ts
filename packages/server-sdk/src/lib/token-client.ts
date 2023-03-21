@@ -75,7 +75,7 @@ export class TokenClient {
         }
     }
 
-    async createAuthProviderCallback(
+    async createAuthProviderURL(
         params: GetAuthProviderCallbackParams
     ): Promise<ProviderCallback> {
         const { providerUrl } = await this.client.authnWithProvider({
