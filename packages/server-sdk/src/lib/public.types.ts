@@ -88,6 +88,11 @@ export interface AuthToken {
     tokenType: string
 }
 
+export interface HandleCallbackParams {
+    code: string
+    state: string
+}
+
 export interface NetworkConfig {
     credentialAdapterURL: string
 
@@ -110,10 +115,24 @@ export interface AssociateIdentityParams {
     token: string
 }
 
+export interface GetAuthProviderURLParams {
+    instanceName: string
+    requestOrigin: string
+    provider: AuthProvider
+    clientState: { [key: string]: unknown }
+}
+
 export interface VerifiableCredential {
     credential: string
-
     credentialType: CredentialType
+}
+
+export enum AuthProvider {
+    Github = 'github',
+    Facebook = 'facebhook',
+    Google = 'google',
+    Saml = 'saml',
+    Cognito = 'cognito',
 }
 
 export enum CredentialType {
